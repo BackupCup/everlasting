@@ -1,8 +1,8 @@
 package net.backupcup.everlasting.mixin;
 
+import net.backupcup.everlasting.config.configHandler;
 import net.backupcup.everlasting.enchantment.RestoringEnchantment;
 import net.backupcup.everlasting.assign.AssignEffects;
-import net.backupcup.everlasting.config.configHandler;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;

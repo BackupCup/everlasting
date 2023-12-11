@@ -1,39 +1,38 @@
 package net.backupcup.everlasting.obelisk
 
+import net.backupcup.everlasting.assign.AssignBlocks
 import net.backupcup.everlasting.assign.AssignScreenHandlers
-import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventory
-import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
-import net.minecraft.screen.ArrayPropertyDelegate
-import net.minecraft.screen.PropertyDelegate
-import net.minecraft.screen.ScreenHandler
+import net.minecraft.screen.*
 import net.minecraft.screen.slot.Slot
 
 class ObeliskScreenHandler(
     syncId: Int,
-    playerInventory: PlayerInventory?,
-    private var entity: ObeliskBlockEntity?,
-    private var inventory: Inventory,
-    private var propertyDelegate: PropertyDelegate = ArrayPropertyDelegate(2)
-) : ScreenHandler(AssignScreenHandlers.OBELISK_SCREEN_HANDLER, syncId) {
+    private val obeliskBlockEntity: ObeliskBlockEntity?,
+    playerInventory: PlayerInventory,
+    private val inventory: ObeliskBlockEntity.ObeliskInventory,
+    private val context: ScreenHandlerContext
+): ScreenHandler(AssignScreenHandlers.OBELISK_SCREEN_HANDLER, syncId) {
 
     constructor(syncId: Int, playerInventory: PlayerInventory): this(
         syncId,
+        null,
         playerInventory,
-        entity, ObeliskBlockEntity.ObeliskInventory(1, null)
-        propertyDelegate
+        ObeliskBlockEntity.ObeliskInventory(1, null),
+        ScreenHandlerContext.EMPTY
     )
 
+    fun getInventory() : Inventory {
+        return inventory
+    }
+
     init {
+        inventory.onOpen(playerInventory.player)
 
-        if (playerInventory != null) {
-            inventory.onOpen(playerInventory.player)
-        }
-
-        addSlot(object : Slot(inventory, 0, 80, 49) {})
+        addSlot(object : Slot(getInventory(), 0, 80, 49) {})
 
         for (row in 0 until 3) {
             for (col in 0 until 9) {
@@ -68,15 +67,27 @@ class ObeliskScreenHandler(
             }
         }
 
-        return newStack;
+        return newStack
     }
 
 
     override fun canUse(player: PlayerEntity?): Boolean {
-        return inventory.canPlayerUse(player)
+        return canUse(this.context, player, AssignBlocks.EVERLASTING_OBELISK)
     }
 
-    fun getPropertyDelegate(index: Int): Int {
-        return propertyDelegate[index]
-    }
+    //fun isWorking() : Boolean {
+    //    return getPropertyDelegate(0) > 0
+    //}
+
+
+    //fun getChargeProgress(): Int {
+    //    val progress: Int = this.getPropertyDelegate(0)
+    //    val maxProgress: Int = this.getPropertyDelegate(1)
+    //    val progressBarSize = 12
+//
+    //    if (maxProgress != 0 && progress != 0) {
+    //        return progress * progressBarSize / maxProgress
+    //    }
+    //    return 0
+    //}
 }

@@ -11,7 +11,6 @@ import net.minecraft.client.render.GameRenderer
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import kotlin.math.ceil
 
 @Environment(value = EnvType.CLIENT)
 class ObeliskScreen(
@@ -46,4 +45,15 @@ class ObeliskScreen(
         super.render(context, mouseX, mouseY, delta)
         drawMouseoverTooltip(context, mouseX, mouseY)
     }
+
+    fun renderCharge(context: DrawContext?, x: Int, y: Int){
+        if (handler.isWorking())
+            //context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 166, (ceil((handler.getPropertyDelegate(0) / chargePerSculk)).toInt() * 6), 18) //replace x in (x / chargePerSculk) with
+            context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 166, handler.getChargeProgress(), 18) //replace x in (x / chargePerSculk) with
+    }
+
+    fun recieveChargePacket() {
+
+    }
+ //
 }

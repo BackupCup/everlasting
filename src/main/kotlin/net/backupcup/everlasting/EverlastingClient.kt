@@ -1,6 +1,7 @@
 package net.backupcup.everlasting
 
 import net.backupcup.everlasting.assign.AssignBlocks
+import net.backupcup.everlasting.assign.AssignPackets
 import net.backupcup.everlasting.assign.AssignScreenHandlers
 import net.backupcup.everlasting.assign.AssignScreens
 import net.backupcup.everlasting.config.configHandler
@@ -16,6 +17,7 @@ object EverlastingClient : ClientModInitializer{
         if(configHandler.getConfigValue("ObeliskEnable").toBoolean()) {
             AssignScreens.OBELISK_SCREEN
             AssignScreenHandlers.OBELISK_SCREEN_HANDLER
+            AssignPackets.assignPacket()
         }
         BlockRenderLayerMap.INSTANCE.putBlock(AssignBlocks.EVERLASTING_OBELISK, RenderLayer.getCutout())
     }

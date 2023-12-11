@@ -7,6 +7,7 @@ import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.inventory.Inventory
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory
 import net.minecraft.util.ActionResult
@@ -50,9 +51,10 @@ class ObeliskBlock(
         newState: BlockState?,
         moved: Boolean
     ) {
-        if (newState != null && state != null) {
-            if (state.block != newState.block && world?.getBlockEntity(pos) is ObeliskBlockEntity) {
-                ItemScatterer.spawn(world, pos, world.getBlockEntity(pos) as ObeliskBlockEntity)
+        if (newState != null && state != null && world != null) {
+            val blockEntity : BlockEntity? = world.getBlockEntity(pos)
+            if (blockEntity is Inventory && state.block != newState.block && world.getBlockEntity(pos) is ObeliskBlockEntity) {
+                ItemScatterer.spawn(world, pos, blockEntity)
                 world.updateComparators(pos, this)
             }
         }

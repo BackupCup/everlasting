@@ -3,9 +3,11 @@ package net.backupcup.everlasting.obelisk
 import net.backupcup.everlasting.Everlasting
 import net.backupcup.everlasting.assign.AssignBlocks
 import net.backupcup.everlasting.assign.AssignEffects
+import net.backupcup.everlasting.assign.AssignPackets
 import net.backupcup.everlasting.config.configHandler
-import net.backupcup.everlasting.inventory.ImplementedInventory
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.block.entity.BlockEntity
@@ -15,7 +17,6 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventories
 import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.SimpleInventory
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
@@ -26,13 +27,14 @@ import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerContext
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
-import net.minecraft.util.collection.DefaultedList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
+import org.apache.logging.log4j.core.jmx.Server
 import kotlin.properties.Delegates
 
 class ObeliskBlockEntity(
@@ -42,11 +44,16 @@ class ObeliskBlockEntity(
     AssignBlocks.EVERLASTING_OBELISK_BLOCK_ENTITY,
     pos,
     state
-), NamedScreenHandlerFactory, ImplementedInventory {
-    var inventory = DefaultedList.ofSize(1, ItemStack.EMPTY)
-    val FUEL_SLOT = 0
+), NamedScreenHandlerFactory {
+    var inventory = ObeliskInventory(1, this)
 
-    class ObeliskInventory(size: Int, blockEntity: ObeliskBlockEntity): SimpleInventory(size) {
+    //Config Values
+    val maxCharge = configHandler.getConfigValue("ObeliskChargeMax").toInt()
+    val chargePerPlayer = configHandler.getConfigValue("ObeliskChargedUsedPerPlayer").toInt()
+    val chargePerSculk = configHandler.getConfigValue("ObeliskChargePerSculk").toInt()
+    val effectRadius = configHandler.getConfigValue("ObeliskRadius").toDouble()
+
+    class ObeliskInventory(size: Int, blockEntity: ObeliskBlockEntity?): SimpleInventory(size) {
         override fun readNbtList(nbtList: NbtList?) {
             if (nbtList != null) {
                 for (i in 0 until nbtList.size) {
@@ -94,8 +101,9 @@ class ObeliskBlockEntity(
         override fun get(index: Int): Int {
             return when (index) {
                 0 -> charge
-                1 -> playerAmount
-                2 -> soundPlayed
+                1 -> maxCharge
+                2 -> playerAmount
+                3 -> soundPlayed
                 else -> 0
             }
         }
@@ -121,9 +129,9 @@ class ObeliskBlockEntity(
         world?.updateListeners(pos, cachedState, cachedState, 3)
     }
 
-    override fun getItems(): DefaultedList<ItemStack> {
-        return inventory
-    }
+    //override fun getItems(): DefaultedList<ItemStack> {
+    //    return inventory
+    //}
 
     override fun createMenu(syncId: Int, playerInventory: PlayerInventory, player: PlayerEntity?): ScreenHandler {
         return ObeliskScreenHandler(syncId, playerInventory, this, inventory as Inventory, this.propertyDelegate)
@@ -131,7 +139,7 @@ class ObeliskBlockEntity(
 
     override fun writeNbt(nbt: NbtCompound?) {
         super.writeNbt(nbt)
-        Inventories.writeNbt(nbt, inventory)
+        val inventoryList = inventory.toNbtList()
         nbt?.putInt("everlastingObelisk.charge", charge)
         nbt?.putInt("everlastingObelisk.playerAmount", playerAmount)
         nbt?.putInt("everlastingObelisk.soundPlayed", soundPlayed)
@@ -150,10 +158,11 @@ class ObeliskBlockEntity(
             if (world != null && pos != null && blockEntity != null) {
                 if(world.isClient) return
                 if(blockEntity.playerAmount > 0) {
-                    if(blockEntity.charge <= (blockEntity.maxCharge - blockEntity.chargePerSculk) && blockEntity.inventory[blockEntity.FUEL_SLOT].isOf(Items.SCULK)) {
-                        blockEntity.consumeItem()
-                        blockEntity.addCharge()
-                        markDirty(world, pos, state)
+                    if(blockEntity.charge <= (blockEntity.maxCharge - blockEntity.chargePerSculk)
+                        && blockEntity.inventory.getStack(0).isOf(Items.SCULK)) {
+                            blockEntity.consumeItem()
+                            blockEntity.addCharge()
+                            markDirty(world, pos, state)
                     }
                 }
                 if(world.time % 100L == 0L) {
@@ -203,6 +212,10 @@ class ObeliskBlockEntity(
         if (this.charge >= this.maxCharge) this.charge = this.maxCharge
     }
 
+    fun setChargeLevel(chargeLevel: Int) {
+        this.charge = chargeLevel
+    }
+
     private fun decreaseCharge() {
         this.charge -= this.chargePerPlayer
     }
@@ -218,6 +231,16 @@ class ObeliskBlockEntity(
         if (this.soundPlayed == 0) {
             world?.playSound(null, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.BLOCKS)
             this.soundPlayed = 1
+        }
+    }
+
+    private fun sendChargePacket() {
+        val data: PacketByteBuf = PacketByteBufs.create()
+        data.writeInt(charge)
+        data.writeBlockPos(getPos())
+
+        for(player: ServerPlayerEntity in PlayerLookup.tracking(this.world as ServerWorld, getPos())) {
+            ServerPlayNetworking.send(player, AssignPackets.CHARGE_SYNC, data)
         }
     }
 }
