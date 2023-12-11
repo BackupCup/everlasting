@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "net.backupcup.everlasting.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"ItemStackMixin",
+		"BrewingRecipeRegistryMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

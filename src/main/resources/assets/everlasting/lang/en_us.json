@@ -1,0 +1,15 @@
+{
+  "effect.everlasting.everlasting": "Everlasting",
+  "block.everlasting.everlasting_obelisk": "Everlasting Obelisk",
+
+  "item.minecraft.potion.effect.everlasting_potion": "Potion of Everlasting",
+  "item.minecraft.splash_potion.effect.everlasting_potion": "Splash Potion of Everlasting",
+  "item.minecraft.lingering_potion.effect.everlasting_potion": "Lingering Potion of Everlasting",
+  "item.minecraft.potion.effect.everlasting_potion_2": "Potion of Everlasting",
+  "item.minecraft.splash_potion.effect.everlasting_potion_2": "Splash Potion of Everlasting",
+  "item.minecraft.lingering_potion.effect.everlasting_potion_2": "Lingering Potion of Everlasting",
+  "item.minecraft.tipped_arrow.effect.everlasting_potion" : "Arrow of Everlasting",
+  "item.minecraft.tipped_arrow.effect.everlasting_potion_2" : "Arrow of Everlasting",
+
+  "enchantment.everlasting.restoring": "Restoring"
+}

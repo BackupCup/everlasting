@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nCn",
+    "ENE",
+    "SSS"
+  ],
+  "key": {
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "C": {
+      "item": "minecraft:copper_block"
+    },
+    "E": {
+      "item": "minecraft:echo_shard"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "S": {
+      "item": "minecraft:stripped_spruce_wood"
+    }
+  },
+  "result": {
+    "item": "everlasting:everlasting_obelisk",
+    "count": 1
+  }
+}
