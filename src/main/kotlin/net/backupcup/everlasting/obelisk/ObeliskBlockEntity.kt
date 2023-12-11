@@ -79,13 +79,6 @@ class ObeliskBlockEntity(
         }
     }
 
-    //Config Values
-    val maxCharge = configHandler.getConfigValue("ObeliskChargeMax").toInt()
-    val chargePerPlayer = configHandler.getConfigValue("ObeliskChargedUsedPerPlayer").toInt()
-    val chargePerSculk = configHandler.getConfigValue("ObeliskChargePerSculk").toInt()
-    val effectRadius = configHandler.getConfigValue("ObeliskRadius").toDouble()
-
-
     private var charge: Int by Delegates.observable(0) { _, _, _ ->
         markDirty()
     }
@@ -95,6 +88,8 @@ class ObeliskBlockEntity(
     private var soundPlayed: Int by Delegates.observable(1) { _, _, _ ->
         markDirty()
     }
+
+    /*
 
     private var propertyDelegate: PropertyDelegate = object : PropertyDelegate {
 
@@ -111,8 +106,8 @@ class ObeliskBlockEntity(
         override fun set(index: Int, value: Int) {
             when (index) {
                 0 -> charge = value
-                1 -> playerAmount = value
-                2 -> soundPlayed = value
+                2 -> playerAmount = value
+                3 -> soundPlayed = value
             }
         }
 
@@ -120,6 +115,8 @@ class ObeliskBlockEntity(
             return 3
         }
     }
+
+     */
 
     override fun getDisplayName(): Text {
         return Text.translatable("block.everlasting.everlasting_obelisk")
@@ -134,7 +131,7 @@ class ObeliskBlockEntity(
     //}
 
     override fun createMenu(syncId: Int, playerInventory: PlayerInventory, player: PlayerEntity?): ScreenHandler {
-        return ObeliskScreenHandler(syncId, playerInventory, this, inventory as Inventory, this.propertyDelegate)
+        return ObeliskScreenHandler(syncId, this, playerInventory, inventory, ScreenHandlerContext.create(world, pos))
     }
 
     override fun writeNbt(nbt: NbtCompound?) {
@@ -147,7 +144,7 @@ class ObeliskBlockEntity(
 
     override fun readNbt(nbt: NbtCompound?) {
         super.readNbt(nbt)
-        Inventories.readNbt(nbt, inventory)
+        val inventoryList = Inventories.readNbt(nbt, inventory.stacks)
         charge = nbt?.getInt("everlastingObelisk.charge")!!
         playerAmount = nbt.getInt("everlastingObelisk.playerAmount")
         soundPlayed = nbt.getInt("everlastingObelisk.soundPlayed")
@@ -204,7 +201,7 @@ class ObeliskBlockEntity(
     }
 
     private fun consumeItem() {
-        if(this.inventory[FUEL_SLOT].isOf(Items.SCULK)) this.removeStack(FUEL_SLOT, 1)
+        if(this.inventory.getStack(0).isOf(Items.SCULK)) this.inventory.removeStack(0, this.chargePerPlayer)
     }
 
     private fun addCharge() {

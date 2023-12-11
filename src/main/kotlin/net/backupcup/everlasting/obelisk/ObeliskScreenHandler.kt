@@ -46,30 +46,29 @@ class ObeliskScreenHandler(
     }
 
     override fun quickMove(player: PlayerEntity?, invSlot: Int): ItemStack? {
-        var newStack : ItemStack = ItemStack.EMPTY;
-        val slot : Slot = this.slots[invSlot];
+        var newStack: ItemStack = ItemStack.EMPTY
+        val slot: Slot = this.slots[invSlot]
 
         if (slot.hasStack()) {
-            val originalStack : ItemStack = slot.getStack();
-            newStack = originalStack.copy();
+            val originalStack: ItemStack = slot.stack
+            newStack = originalStack.copy()
             if (invSlot < this.inventory.size()) {
                 if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size, true)) {
-                    return ItemStack.EMPTY;
+                    return ItemStack.EMPTY
                 }
             } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
-                return ItemStack.EMPTY;
+                return ItemStack.EMPTY
             }
 
-            if (originalStack.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+            if (originalStack.isEmpty) {
+                slot.stack = ItemStack.EMPTY
             } else {
-                slot.markDirty();
+                slot.markDirty()
             }
         }
 
         return newStack
     }
-
 
     override fun canUse(player: PlayerEntity?): Boolean {
         return canUse(this.context, player, AssignBlocks.EVERLASTING_OBELISK)

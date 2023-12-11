@@ -36,8 +36,8 @@ class ObeliskScreen(
         y = (height - backgroundHeight) / 2
 
         context?.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight)
-        context?.drawTexture(TEXTURE, x+52, y + 10, 1, 166, (ceil((23 / chargePerSculk)).toInt() * 6), 18) //replace x in (x / chargePerSculk) with handler.getPropertyDelegate(0)
-        Everlasting.logger.info("handler: " + handler.getPropertyDelegate(1).toString()) //debug
+        renderCharge(context, x, y)
+        Everlasting.logger.info("handler: " + handler.getPropertyDelegate(0).toString()) //debug
     }
 
     override fun render(context: DrawContext?, mouseX: Int, mouseY: Int, delta: Float) {
