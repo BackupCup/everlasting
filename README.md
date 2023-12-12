@@ -1,8 +1,8 @@
-![Introduction](https://example.com/obelisk.png)
+![Introduction](https://github.com/EndLone/everlasting/blob/master/descAssets/Introduction.png)
 
 Welcome to the Everlasting Mod, where durability concerns are a thing of the past!
 
-![Content](https://example.com/obelisk.png)
+![Content](https://github.com/EndLone/everlasting/blob/master/descAssets/content.png)
 
 ### 1. Everlasting Obelisk
 
@@ -25,7 +25,7 @@ For a temporary boost of unbreakable gear, use the Everlasting Potion. This poti
 
 - **On-the-Go Protection:** Perfect for adventurers and explorers, the potion grants a short-term immunity to gear durability damage.
 
-![FAQ](https://example.com/obelisk.png)
+![FAQ](https://github.com/EndLone/everlasting/blob/master/descAssets/faq.png)
 
 ## Installation
 
