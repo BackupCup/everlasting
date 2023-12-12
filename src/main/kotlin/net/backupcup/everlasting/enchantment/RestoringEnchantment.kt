@@ -23,6 +23,14 @@ class RestoringEnchantment(weight: Rarity?, target: EnchantmentTarget?, slotType
         return true
     }
 
+    override fun isAvailableForEnchantedBookOffer(): Boolean {
+        return true
+    }
+
+    override fun isAvailableForRandomSelection(): Boolean {
+        return false
+    }
+
     companion object {
         @JvmField
         val INSTANCE: RestoringEnchantment = RestoringEnchantment(Rarity.VERY_RARE, EnchantmentTarget.BREAKABLE, restoringSlots)

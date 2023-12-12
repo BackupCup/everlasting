@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:nether/summon_wither",
+  "display": {
+    "title": {
+      "text": "advancements.nether.everlasting_obelisk.title"
+    },
+    "description": {
+      "text": "advancements.nether.everlasting_obelisk.description"
+    },
+    "icon": {
+      "item": "everlasting:everlasting_obelisk"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_obelisk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "everlasting:everlasting_obelisk"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_obelisk"
+    ]
+  ]
+}

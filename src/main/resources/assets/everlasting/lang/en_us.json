@@ -6,6 +6,9 @@
   "tooltip.everlasting.everlasting_obelisk.line_2": "with unbreakable durability using Sculk as fuel.",
   "tooltip.everlasting.everlasting_obelisk.line_3": "Requires a connected lightning rod to transmit the effect.",
 
+  "advancements.nether.everlasting_obelisk.title": "A Dubious Construction",
+  "advancements.nether.everlasting_obelisk.description": "Craft the Everlasting Obelisk, a special block that uses Sculk to save your gear.",
+
 
   "item.minecraft.potion.effect.everlasting_potion": "Potion of Everlasting",
   "item.minecraft.splash_potion.effect.everlasting_potion": "Splash Potion of Everlasting",
