@@ -18,6 +18,11 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	mavenCentral()
+	mavenLocal()
+	maven {
+		name 'Gegy'
+		url 'https://maven.gegy.dev'
+	}
 }
 
 fabricApi {
