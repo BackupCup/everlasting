@@ -2,10 +2,10 @@
   "parent": "minecraft:nether/summon_wither",
   "display": {
     "title": {
-      "text": "advancements.nether.everlasting_obelisk.title"
+      "text": "A Dubious Construction"
     },
     "description": {
-      "text": "advancements.nether.everlasting_obelisk.description"
+      "text": "Craft the Everlasting Obelisk, a special block that uses Sculk to save your gear."
     },
     "icon": {
       "item": "everlasting:everlasting_obelisk"
