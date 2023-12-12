@@ -2,7 +2,7 @@ package net.backupcup.everlasting.mixin;
 
 import net.backupcup.everlasting.config.configHandler;
 import net.backupcup.everlasting.enchantment.RestoringEnchantment;
-import net.backupcup.everlasting.assign.AssignEffects;
+import net.backupcup.everlasting.assign.RegisterEffects;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,7 +17,7 @@ public abstract class ItemStackMixin {
                        target = "Lnet/minecraft/item/ItemStack;setDamage(I)V"))
     private boolean shouldPreventDamage(ItemStack stack, int amount, int damage, Random random, ServerPlayerEntity player) {
         if(!configHandler.INSTANCE.containsItemID(stack.getItem().getTranslationKey().trim())) {
-            if (player.hasStatusEffect(AssignEffects.INSTANCE.getEVERLASTING())) {
+            if (player.hasStatusEffect(RegisterEffects.INSTANCE.getEVERLASTING())) {
                 return false;
             }
 
