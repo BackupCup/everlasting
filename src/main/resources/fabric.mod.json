@@ -3,13 +3,13 @@
 	"id": "everlasting",
 	"version": "${version}",
 	"name": "Everlasting",
-	"description": "New ways to maintain durability of your gear!",
+	"description": "Make your durability concerns a thing of the past!",
 	"authors": [
 		"BackupCup"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/everlasting",
+		"sources": "https://github.com/EndLone/everlasting"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/everlasting/icon.png",
