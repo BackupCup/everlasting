@@ -11,6 +11,7 @@ import net.minecraft.client.render.GameRenderer
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import kotlin.math.ceil
 
 @Environment(value = EnvType.CLIENT)
 class ObeliskScreen(
@@ -37,7 +38,7 @@ class ObeliskScreen(
 
         context?.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight)
         renderCharge(context, x, y)
-        Everlasting.logger.info("handler: " + handler.getPropertyDelegate(0).toString()) //debug
+        //Everlasting.logger.info("handler: " + handler.getPropertyDelegate(0).toString()) //debug
     }
 
     override fun render(context: DrawContext?, mouseX: Int, mouseY: Int, delta: Float) {
@@ -46,14 +47,8 @@ class ObeliskScreen(
         drawMouseoverTooltip(context, mouseX, mouseY)
     }
 
-    fun renderCharge(context: DrawContext?, x: Int, y: Int){
-        if (handler.isWorking())
-            //context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 166, (ceil((handler.getPropertyDelegate(0) / chargePerSculk)).toInt() * 6), 18) //replace x in (x / chargePerSculk) with
-            context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 166, handler.getChargeProgress(), 18) //replace x in (x / chargePerSculk) with
+    private fun renderCharge(context: DrawContext?, x: Int, y: Int){
+        if (handler.getCharge() > 0)
+            context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 166, (ceil((handler.getCharge() / chargePerSculk)).toInt() * 6), 18) //replace x in (x / chargePerSculk) with
     }
-
-    fun recieveChargePacket() {
-
-    }
- //
 }

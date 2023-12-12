@@ -9,7 +9,7 @@ import net.minecraft.util.collection.DefaultedList;
 /**
  * A simple {@code Inventory} implementation with only default methods + an item list getter.
  *
- * Originally by Juuz @ the Fabric Wiki: https://fabricmc.net/wiki/tutorial:inventory.
+ * Originally by Juuz
  */
 public interface ImplementedInventory extends Inventory {
 
@@ -98,8 +98,8 @@ public interface ImplementedInventory extends Inventory {
     @Override
     default void setStack(int slot, ItemStack stack) {
         getItems().set(slot, stack);
-        if (stack.getCount() > getMaxCountPerStack()) {
-            stack.setCount(getMaxCountPerStack());
+        if (stack.getCount() > stack.getMaxCount()) {
+            stack.setCount(stack.getMaxCount());
         }
     }
 

@@ -1,8 +1,8 @@
 package net.backupcup.everlasting
 
-import net.backupcup.everlasting.assign.AssignBlocks
-import net.backupcup.everlasting.assign.AssignEffects
-import net.backupcup.everlasting.assign.AssignScreenHandlers
+import net.backupcup.everlasting.assign.RegisterBlocks
+import net.backupcup.everlasting.assign.RegisterEffects
+import net.backupcup.everlasting.assign.RegisterScreenHandlers
 import net.backupcup.everlasting.config.configHandler
 import net.backupcup.everlasting.enchantment.RestoringEnchantment
 import net.backupcup.everlasting.mixin.BrewingRecipeRegistryMixin
@@ -27,26 +27,26 @@ object Everlasting : ModInitializer {
 	val restoringSlots = arrayOf(EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND)
 
 	override fun onInitialize() {
-		AssignEffects.EVERLASTING
+		RegisterEffects.EVERLASTING
 
-		if (AssignEffects.PotionEverlastingEnable) {
-			AssignEffects.EVERLASTING_POTION
-			BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, Items.NETHERITE_SCRAP, AssignEffects.EVERLASTING_POTION)
+		if (RegisterEffects.PotionEverlastingEnable) {
+			RegisterEffects.EVERLASTING_POTION
+			BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, Items.NETHERITE_SCRAP, RegisterEffects.EVERLASTING_POTION)
 		}
 
-		if (AssignEffects.PotionEverlastingLargeEnable) {
-			AssignEffects.EVERLASTING_POTION_LARGE
-			BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(AssignEffects.EVERLASTING_POTION, Items.REDSTONE, AssignEffects.EVERLASTING_POTION_LARGE)
+		if (RegisterEffects.PotionEverlastingLargeEnable) {
+			RegisterEffects.EVERLASTING_POTION_LARGE
+			BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(RegisterEffects.EVERLASTING_POTION, Items.REDSTONE, RegisterEffects.EVERLASTING_POTION_LARGE)
 		}
 
 		if(configHandler.getConfigValue("ObeliskEnable").toBoolean()) {
-			AssignScreenHandlers.OBELISK_SCREEN_HANDLER
-			Registry.register(Registries.BLOCK, Identifier(MOD_ID, "everlasting_obelisk"), AssignBlocks.EVERLASTING_OBELISK)
-			Registry.register(Registries.ITEM, Identifier(MOD_ID, "everlasting_obelisk"), BlockItem(AssignBlocks.EVERLASTING_OBELISK, FabricItemSettings()))
+			RegisterScreenHandlers.OBELISK_SCREEN_HANDLER
+			Registry.register(Registries.BLOCK, Identifier(MOD_ID, "everlasting_obelisk"), RegisterBlocks.EVERLASTING_OBELISK)
+			Registry.register(Registries.ITEM, Identifier(MOD_ID, "everlasting_obelisk"), BlockItem(RegisterBlocks.EVERLASTING_OBELISK, FabricItemSettings()))
 			ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL)
 				.register(ModifyEntries { content: FabricItemGroupEntries ->
 					content.add(
-						AssignBlocks.EVERLASTING_OBELISK
+						RegisterBlocks.EVERLASTING_OBELISK
 					)
 				})
 		}
@@ -58,6 +58,5 @@ object Everlasting : ModInitializer {
 		//Last issue: the delegate doesn't get transferred from BlockEntity to ScreenHandler and to Screen by extension
 
 		//idea: add lore like "Hold [SHIFT] for more Information" to the obelisk
-		//add configurable charge vars to the obelisk
 	}
 }
