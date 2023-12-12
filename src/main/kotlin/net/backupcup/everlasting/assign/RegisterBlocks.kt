@@ -14,7 +14,7 @@ import net.minecraft.sound.BlockSoundGroup
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 
-object AssignBlocks {
+object RegisterBlocks {
 
     val EVERLASTING_OBELISK = ObeliskBlock(
         FabricBlockSettings.create()

@@ -10,7 +10,7 @@ import net.minecraft.registry.Registry
 import net.minecraft.registry.Registries
 import net.minecraft.util.Identifier
 
-object AssignEffects {
+object RegisterEffects {
     val EVERLASTING : StatusEffect = Registry.register(Registries.STATUS_EFFECT, Identifier(Everlasting.MOD_ID, "everlasting"),
         StatusEffect(StatusEffectCategory.BENEFICIAL, 0x06E5B5))
 
