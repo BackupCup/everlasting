@@ -1,6 +1,11 @@
 {
   "effect.everlasting.everlasting": "Everlasting",
+
   "block.everlasting.everlasting_obelisk": "Everlasting Obelisk",
+  "tooltip.everlasting.everlasting_obelisk.line_1": "Empowers nearby players' gear",
+  "tooltip.everlasting.everlasting_obelisk.line_2": "with unbreakable durability using Sculk as fuel.",
+  "tooltip.everlasting.everlasting_obelisk.line_3": "Requires a connected lightning rod to transmit the effect.",
+
 
   "item.minecraft.potion.effect.everlasting_potion": "Potion of Everlasting",
   "item.minecraft.splash_potion.effect.everlasting_potion": "Splash Potion of Everlasting",
