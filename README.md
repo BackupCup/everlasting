@@ -12,9 +12,9 @@ The Everlasting Obelisk is a powerful block that provides a unique buff to playe
 - **Fuel Requirement:** It consumes Sculk as fuel for its empowering effect.
 - **Lightning Rod Connection:** To transmit the empowering effect, the obelisk requires a connected lightning rod.
 
-### 2. Treasure Enchantment: Everlasting
+### 2. Treasure Enchantment: Restoring
 
-Equip your gear with the Everlasting enchantment to make it truly indestructible. This enchantment works as follows:
+Equip your gear with the Restoring enchantment to make it truly indestructible. This enchantment works as follows:
 
 - **Durability Protection:** When your gear takes durability damage, the enchantment consumes some of your XP to block that damage.
 - **Balanced Gameplay:** Balancing powerful gear with XP consumption adds an exciting twist to your survival experience.
