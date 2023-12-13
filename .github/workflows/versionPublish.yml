@@ -1,0 +1,88 @@
+name: Publish on GitHub, CurseForge & Modrinth    #The name of your GitHub Action on github.com
+
+on: [ pull_request, workflow_dispatch ]           #When your GitHub Action will be executed ('pull_request' -> on every Merge(/Pull) Request; 'workflow_dispatch' -> allows manual execution through github.com
+
+env:                                              #Environment variables that can later be referenced using ${{ env.MINECRAFT_VERSION }}. These are useful for repeating information and allow for quick changes for new mod updates
+  MINECRAFT_VERSION: 1.20.1
+  JAVA_VERSION: 17
+  VERSION: 1.0.2+1.20.1
+  RELEASE_NAME: Everlasting 1.0.2+1.20.1
+  CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+  #MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+
+
+      - name: Publish CurseForge
+        uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          curseforge-id: 947955
+          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md
+
+          loaders: fabric
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+
+      - name: Publish Github
+        uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          github-tag: "v${{env.VERSION}}"
+          github-token: "${{env.GITHUB_TOKEN}}"
+
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md
+
+          loaders: fabric
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+
+      #- name: Publish Modrinth
+      #  uses: Kir-Antipov/mc-publish@v2.1
+      #  with:
+      #    modrinth-id: GJry151G
+      #    modrinth-token: "${{env.MODRINTH_TOKEN}}"
+      #
+      #    name: "${{env.RELEASE_NAME}}"
+      #    version: "${{env.VERSION}}"
+      #    version-type: release
+      #    changelog-file: CHANGELOG.md
+      #
+      #    loaders: fabric
+      #    game-versions: "${{env.MINECRAFT_VERSION}}"
+      #    java: "${{env.JAVA_VERSION}}"
