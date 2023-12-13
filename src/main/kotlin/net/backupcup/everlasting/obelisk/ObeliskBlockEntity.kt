@@ -130,7 +130,7 @@ class ObeliskBlockEntity(
                             blockEntity.playerAmount = list.size
                             if(!blockEntity.isChargeZero()) {
                                 blockEntity.playActivationSound()
-                                Everlasting.logger.info(blockEntity.charge.toString()) //debug
+                                //Everlasting.logger.info(blockEntity.charge.toString()) //debug
                                 for (playerEntity in list) {
                                     playerEntity.addStatusEffect(StatusEffectInstance(RegisterEffects.EVERLASTING, 101, 0, true, true))
                                     blockEntity.decreaseCharge()
