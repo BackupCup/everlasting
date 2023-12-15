@@ -64,8 +64,6 @@ object Everlasting : ModInitializer {
 
 		Registry.register(Registries.ENCHANTMENT, Identifier(MOD_ID, "restoring"), RestoringEnchantment.INSTANCE)
 
-
-
 		logger.info("Everlasting Registered")
 	}
 }
