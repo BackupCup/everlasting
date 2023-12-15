@@ -11,7 +11,7 @@
 		"homepage": "https://modrinth.com/mod/everlasting",
 		"sources": "https://github.com/EndLone/everlasting"
 	},
-	"license": "CC0-1.0",
+	"license": "Timefall License 1.2",
 	"icon": "assets/everlasting/icon.png",
 	"environment": "*",
 	"entrypoints": {
