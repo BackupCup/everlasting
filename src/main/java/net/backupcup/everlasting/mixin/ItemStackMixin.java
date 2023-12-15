@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-    @Shadow public abstract boolean isFood();
-
     @WrapWithCondition(method = "damage(ILnet/minecraft/util/math/random/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z",
                        at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/item/ItemStack;setDamage(I)V"))
