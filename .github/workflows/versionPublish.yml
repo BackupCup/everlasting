@@ -73,7 +73,7 @@ jobs:
 
 
       - name: Publish Modrinth
-        uses: Kir-Antipov/mc-publish@v2.1
+        uses: Kir-Antipov/mc-publish@v3.2
         with:
           modrinth-id: GJry151G
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
