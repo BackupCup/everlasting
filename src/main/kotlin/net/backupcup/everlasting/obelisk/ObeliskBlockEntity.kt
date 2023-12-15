@@ -1,11 +1,9 @@
 package net.backupcup.everlasting.obelisk
 
-import net.backupcup.everlasting.Everlasting
 import net.backupcup.everlasting.assign.RegisterBlocks
 import net.backupcup.everlasting.assign.RegisterEffects
 import net.backupcup.everlasting.config.configHandler
 import net.backupcup.everlasting.inventory.ImplementedInventory
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
@@ -14,7 +12,6 @@ import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventories
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
@@ -118,6 +115,7 @@ class ObeliskBlockEntity(
                             blockEntity.addCharge()
                             markDirty(world, pos, state)
                     }
+
                 }
                 if(world.time % 100L == 0L) {
 
@@ -126,11 +124,11 @@ class ObeliskBlockEntity(
                         val list = world.getNonSpectatingEntities(
                             PlayerEntity::class.java, box
                         )
+                        blockEntity.playerAmount = list.size
                         if (list.isNotEmpty()) {
-                            blockEntity.playerAmount = list.size
                             if(!blockEntity.isChargeZero()) {
                                 blockEntity.playActivationSound()
-                                //Everlasting.logger.info(blockEntity.charge.toString()) //debug
+
                                 for (playerEntity in list) {
                                     playerEntity.addStatusEffect(StatusEffectInstance(RegisterEffects.EVERLASTING, 101, 0, true, true))
                                     blockEntity.decreaseCharge()
@@ -152,7 +150,6 @@ class ObeliskBlockEntity(
             }
         }
     }
-
 
     private fun isChargeZero(): Boolean {
         return this.charge <= 0

@@ -11,15 +11,26 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.ModifyEntries
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents.Modify
+import net.fabricmc.fabric.api.loot.v2.LootTableSource
+import net.minecraft.block.Blocks
 import net.minecraft.entity.EquipmentSlot
-import net.minecraft.item.BlockItem
-import net.minecraft.item.ItemGroups
-import net.minecraft.item.Items
+import net.minecraft.item.*
+import net.minecraft.loot.LootManager
+import net.minecraft.loot.LootPool
+import net.minecraft.loot.LootTable
+import net.minecraft.loot.LootTables
+import net.minecraft.loot.entry.ItemEntry
+import net.minecraft.loot.function.EnchantWithLevelsLootFunction
+import net.minecraft.loot.provider.number.UniformLootNumberProvider
 import net.minecraft.potion.Potions
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.resource.ResourceManager
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
+
 
 object Everlasting : ModInitializer {
 	val logger = LoggerFactory.getLogger("everlasting")
@@ -53,10 +64,8 @@ object Everlasting : ModInitializer {
 
 		Registry.register(Registries.ENCHANTMENT, Identifier(MOD_ID, "restoring"), RestoringEnchantment.INSTANCE)
 
+
+
 		logger.info("Everlasting Registered")
-
-		//Last issue: the delegate doesn't get transferred from BlockEntity to ScreenHandler and to Screen by extension
-
-		//idea: add lore like "Hold [SHIFT] for more Information" to the obelisk
 	}
 }

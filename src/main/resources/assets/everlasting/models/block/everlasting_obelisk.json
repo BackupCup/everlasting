@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "everlasting:block/everlasting_obelisk",
-		"particle": "everlasting:block/everlasting_obelisk"
+		"particle": "minecraft:block/netherite_block"
 	},
 	"elements": [
 		{

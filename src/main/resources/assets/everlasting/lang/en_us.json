@@ -18,6 +18,9 @@
   "item.minecraft.lingering_potion.effect.everlasting_potion_2": "Lingering Potion of Everlasting",
   "item.minecraft.tipped_arrow.effect.everlasting_potion" : "Arrow of Everlasting",
   "item.minecraft.tipped_arrow.effect.everlasting_potion_2" : "Arrow of Everlasting",
+  "item.mythicmetals.tipped_runite_arrow.effect.everlasting_potion": "Runite Arrow of Everlasting",
+  "item.mythicmetals.tipped_runite_arrow.effect.everlasting_potion_2": "Runite Arrow of Everlasting",
 
-  "enchantment.everlasting.restoring": "Restoring"
+  "enchantment.everlasting.restoring": "Restoring",
+  "enchantment.everlasting.restoring.desc": "When your gear takes durability damage, the enchantment consumes some of your XP to block that damage."
 }
