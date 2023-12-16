@@ -1,1 +1,3 @@
-
+- Updated the License in the mod json
+- Added Restoring to loottables
+- Gave Restoring a Max and Min Power
