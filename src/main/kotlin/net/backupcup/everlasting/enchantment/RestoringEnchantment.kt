@@ -5,9 +5,7 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.EnchantmentTarget
 import net.minecraft.enchantment.Enchantments
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EquipmentSlot
-import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.server.network.ServerPlayerEntity
 
@@ -24,21 +22,27 @@ class RestoringEnchantment(weight: Rarity?, target: EnchantmentTarget?, slotType
     }
 
     override fun isAvailableForEnchantedBookOffer(): Boolean {
-        return true
-    }
-
-    override fun isAvailableForRandomSelection(): Boolean {
         return false
     }
 
     companion object {
         @JvmField
-        val INSTANCE: RestoringEnchantment = RestoringEnchantment(Rarity.VERY_RARE, EnchantmentTarget.BREAKABLE, restoringSlots)
+        val INSTANCE: RestoringEnchantment = RestoringEnchantment(Rarity.COMMON, EnchantmentTarget.BREAKABLE, restoringSlots)
 
         fun shouldPreventDamage(itemStack: ItemStack, amount: Int, player: ServerPlayerEntity): Boolean {
             return EnchantmentHelper.getLevel(INSTANCE, itemStack) > 0 && player.totalExperience >= amount
         }
     }
 
-    val getMaxLevel = 1
+    override fun getMaxLevel(): Int {
+        return 1
+    }
+
+    override fun getMinPower(level: Int): Int {
+        return level * 30
+    }
+
+    override fun getMaxPower(level: Int): Int {
+        return getMinPower(level) + 60
+    }
 }
