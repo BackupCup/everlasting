@@ -3,10 +3,10 @@ name: Publish on GitHub, CurseForge & Modrinth    #The name of your GitHub Actio
 on: [ pull_request, workflow_dispatch ]           #When your GitHub Action will be executed ('pull_request' -> on every Merge(/Pull) Request; 'workflow_dispatch' -> allows manual execution through github.com
 
 env:                                              #Environment variables that can later be referenced using ${{ env.MINECRAFT_VERSION }}. These are useful for repeating information and allow for quick changes for new mod updates
-  MINECRAFT_VERSION: 1.20.1
+  MINECRAFT_VERSION: ${{ vars.MINECRAFT_VERSION }}
   JAVA_VERSION: 17
   VERSION: ${{ vars.PUBLISH_VERSION }}
-  RELEASE_NAME: Everlasting 1.0.7+1.20.1
+  RELEASE_NAME: Everlasting ${{ vars.PUBLISH_VERSION }}+${{ vars.MINECRAFT_VERSION }}
   CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}

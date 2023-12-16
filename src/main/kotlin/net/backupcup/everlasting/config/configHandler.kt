@@ -20,13 +20,9 @@ object configHandler {
         val defaultConfig = Properties()
 
         // Add default config values here
-        defaultConfig.setProperty("PotionEverlastingEnable", "true")
         defaultConfig.setProperty("PotionEverlastingDuration", "90")
-
-        defaultConfig.setProperty("PotionEverlastingLargeEnable", "true")
         defaultConfig.setProperty("PotionEverlastingLargeDuration", "180")
 
-        defaultConfig.setProperty("ObeliskEnable", "true")
         defaultConfig.setProperty("ObeliskRadius", "16")
         defaultConfig.setProperty("ObeliskChargePerSculk", "10")
         defaultConfig.setProperty("ObeliskChargedUsedPerPlayer", "1")

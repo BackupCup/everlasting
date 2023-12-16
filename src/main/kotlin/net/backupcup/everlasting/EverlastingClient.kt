@@ -13,10 +13,8 @@ import net.minecraft.client.render.RenderLayer
 @Environment(EnvType.CLIENT)
 object EverlastingClient : ClientModInitializer{
     override fun onInitializeClient() {
-        if(configHandler.getConfigValue("ObeliskEnable").toBoolean()) {
-            RegisterScreenHandlers.OBELISK_SCREEN_HANDLER
-            RegisterScreens.OBELISK_SCREEN
-        }
+        RegisterScreenHandlers.OBELISK_SCREEN_HANDLER
+        RegisterScreens.OBELISK_SCREEN
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.EVERLASTING_OBELISK, RenderLayer.getCutout())
     }
 }

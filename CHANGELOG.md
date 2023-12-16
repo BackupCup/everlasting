@@ -1,3 +1,2 @@
-- Updated the License in the mod json
-- Added Restoring to loottables
-- Gave Restoring a Max and Min Power
+ - Removed disabling of items thourhg the config (for now)
+ - !!Fixed a server crash when opening Obelisk UI!!
