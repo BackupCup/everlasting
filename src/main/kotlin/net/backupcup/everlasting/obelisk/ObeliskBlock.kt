@@ -54,6 +54,7 @@ class ObeliskBlock(
         tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_1").formatted(Formatting.GRAY))
         tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_2").formatted(Formatting.GRAY))
         tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_3").formatted(Formatting.GRAY))
+        tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_4").formatted(Formatting.YELLOW))
     }
 
     override fun onStateReplaced(
@@ -105,7 +106,8 @@ class ObeliskBlock(
     ): BlockEntityTicker<T>? {
         return checkType(type, RegisterBlocks.EVERLASTING_OBELISK_BLOCK_ENTITY, BlockEntityTicker { world, pos, state, blockEntity ->
             if (blockEntity is ObeliskBlockEntity) {
-                ObeliskBlockEntity.tick(world, pos, state, blockEntity)
+                if (world.isClient) ObeliskBlockEntity.clientTick(world, pos, state, blockEntity)
+                else ObeliskBlockEntity.tick(world, pos, state, blockEntity)
             }
         })
     }

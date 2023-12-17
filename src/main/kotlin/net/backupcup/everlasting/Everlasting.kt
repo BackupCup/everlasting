@@ -19,6 +19,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
+import kotlin.random.Random
 
 
 object Everlasting : ModInitializer {
