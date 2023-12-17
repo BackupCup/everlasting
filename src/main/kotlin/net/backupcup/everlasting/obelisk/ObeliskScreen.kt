@@ -22,7 +22,9 @@ class ObeliskScreen(
     playerInventory: PlayerInventory,
     title: Text
 ) : HandledScreen<ObeliskScreenHandler>(handler, playerInventory, title) {
-    val TEXTURE = Identifier(Everlasting.MOD_ID, "textures/gui/obelisk.png")
+    var TEXTURE = Identifier(Everlasting.MOD_ID, "textures/gui/obelisk.png")
+    val impactUI = configHandler.getConfigValue("CLIENTSIDEOverchargeImpactUI").toBoolean()
+
     val maxCharge = configHandler.getConfigValue("ObeliskChargeMax").toFloat()
     val sculkPerPlayer = configHandler.getConfigValue("ObeliskChargedUsedPerPlayer").toInt()
     val chargePerSculk = configHandler.getConfigValue("ObeliskChargePerSculk").toInt()
@@ -37,6 +39,9 @@ class ObeliskScreen(
     override fun drawBackground(context: DrawContext?, delta: Float, mouseX: Int, mouseY: Int) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram)
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
+        if(impactUI && handler.getCharge() > maxCharge) {
+            TEXTURE = Identifier(Everlasting.MOD_ID, "textures/gui/obelisk_overcharged.png")
+        }
         RenderSystem.setShaderTexture(0, TEXTURE)
 
         x = (width - backgroundWidth) / 2
@@ -56,8 +61,30 @@ class ObeliskScreen(
     private fun renderCharge(context: DrawContext?, x: Int, y: Int){
         if (handler.getCharge() > 0)
             context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 166, (ceil((handler.getCharge() / maxCharge) * 12).toInt() * 6), 18)
-        if (handler.getCharge() > maxCharge)
-            context?.drawTexture(TEXTURE, x + 52, y + 10, 1, 183, (ceil(((handler.getCharge() - maxCharge) / maxCharge) * 12).toInt() * 6), 18)
+        if (handler.getCharge() > maxCharge) {
+            if(impactUI) {
+                context?.drawTexture(
+                    TEXTURE,
+                    x + 123,
+                    y + 5,
+                    1,
+                    183,
+                    (ceil(((handler.getCharge() - maxCharge) / maxCharge) * 12).toInt() * 6),
+                    25
+                )
+            } else {
+                context?.drawTexture(
+                    TEXTURE,
+                    x + 51,
+                    y + 5,
+                    1,
+                    183,
+                    (ceil(((handler.getCharge() - maxCharge) / maxCharge) * 12).toInt() * 6),
+                    25
+                )
+            }
+        }
+
     }
 
     private fun renderTooltip(context: DrawContext?, mouseX: Int, mouseY: Int) {
@@ -83,10 +110,20 @@ class ObeliskScreen(
             )
         }
 
-        if(mouseX in (x+51..x+124) && mouseY in (y+10..y+27))
-            context?.drawTooltip(
-                this.textRenderer,
-                tooltipTextList,
-                mouseX, mouseY)
+        if(impactUI) {
+            if (mouseX in (x + 51..x + 124) && mouseY in (y + 10..y + 27))
+                context?.drawTooltip(
+                    this.textRenderer,
+                    tooltipTextList,
+                    mouseX, mouseY
+                )
+        } else {
+            if (mouseX in (x + 51..x + 124 + (ceil(((handler.getCharge() - maxCharge) / maxCharge) * 12).toInt() * 6)) && mouseY in (y + 10..y + 27))
+                context?.drawTooltip(
+                    this.textRenderer,
+                    tooltipTextList,
+                    mouseX, mouseY
+                )
+        }
     }
 }

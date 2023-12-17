@@ -1,4 +1,2 @@
- - Added particles on top of the Obelisk
- - Added an Overcharge mechanic to the Obelisk
- - Added a tooltip when hovering over the Charge meter in Obelisk's UI that displays its actual charge and some usage info
- - Changed Obelisk's tooltip accordingly
+ - Changed the abilities of Obelisk UI to "break" out of bounds when the block is Overcharged
+ - Added a clientside setting into config that turns that off or on
