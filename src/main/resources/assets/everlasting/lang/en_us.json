@@ -5,6 +5,12 @@
   "tooltip.everlasting.everlasting_obelisk.line_1": "Empowers nearby players' gear",
   "tooltip.everlasting.everlasting_obelisk.line_2": "with unbreakable durability using Sculk as fuel.",
   "tooltip.everlasting.everlasting_obelisk.line_3": "Requires a connected lightning rod to transmit the effect.",
+  "tooltip.everlasting.everlasting_obelisk.line_4": "Mystically overcharges on lightning strike, doubling range and Sculk usage.",
+  "tooltip.everlasting.everlasting_obelisk.ui.charge": "Sculk Charge",
+  "tooltip.everlasting.everlasting_obelisk.ui.overcharged": "⚡ OVERCHARGED ⚡",
+  "tooltip.everlasting.everlasting_obelisk.ui.sculkPerPlayer": "Charge used per Player",
+  "tooltip.everlasting.everlasting_obelisk.ui.chargePerSculk": "Charge gained per Sculk",
+  "tooltip.everlasting.everlasting_obelisk.ui.effectRange": "Effective Range",
 
   "advancements.nether.everlasting_obelisk.title": "A Dubious Construction",
   "advancements.nether.everlasting_obelisk.description": "Craft the Everlasting Obelisk, a special block that uses Sculk to save your gear.",
