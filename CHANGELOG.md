@@ -1,2 +1,4 @@
- - Removed disabling of items thourhg the config (for now)
- - !!Fixed a server crash when opening Obelisk UI!!
+ - Added particles on top of the Obelisk
+ - Added an Overcharge mechanic to the Obelisk
+ - Added a tooltip when hovering over the Charge meter in Obelisk's UI that displays its actual charge and some usage info
+ - Changed Obelisk's tooltip accordingly
