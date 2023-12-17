@@ -18,7 +18,8 @@ object RegisterBlocks {
 
     val EVERLASTING_OBELISK = ObeliskBlock(
         FabricBlockSettings.create()
-        .strength(3.0f, 1200.0f)
+        .hardness(3f)
+        .resistance(6000f)
         .requiresTool()
         .luminance(7)
         .sounds(BlockSoundGroup.NETHERITE).mapColor(MapColor.CYAN)
