@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "cN ",
+        "NEN",
+        " Nc"
+    ],
+    "key": {
+        "c": {
+            "item": "minecraft:copper_ingot"
+        },
+        "N": {
+            "item": "minecraft:netherite_scrap"
+        },
+        "E": {
+            "item": "minecraft:echo_shard"
+        }
+    },
+    "result": {
+        "item": "everlasting:everlasting_capsule",
+        "count": 1
+    }
+}

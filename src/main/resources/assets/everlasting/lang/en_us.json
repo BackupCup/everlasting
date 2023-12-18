@@ -1,6 +1,9 @@
 {
   "effect.everlasting.everlasting": "Everlasting",
 
+  "item.everlasting.everlasting_capsule": "Everlasting Capsule",
+  "tooltip.everlasting.everlasting_capsule.line_1": "Absorbs damage from other items, applying the same damage to itself.",
+
   "block.everlasting.everlasting_obelisk": "Everlasting Obelisk",
   "tooltip.everlasting.everlasting_obelisk.line_1": "Empowers nearby players' gear",
   "tooltip.everlasting.everlasting_obelisk.line_2": "with unbreakable durability using Sculk as fuel.",

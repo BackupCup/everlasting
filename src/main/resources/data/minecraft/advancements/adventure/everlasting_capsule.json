@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:adventure/kill_mob_near_sculk_catalyst",
+  "display": {
+    "title": {
+      "text": "Encased Safety"
+    },
+    "description": {
+      "text": "Craft or find an Everlasting Capsule."
+    },
+    "icon": {
+      "item": "everlasting:everlasting_capsule"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_capsule": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "everlasting:everlasting_capsule"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_capsule"
+    ]
+  ]
+}
