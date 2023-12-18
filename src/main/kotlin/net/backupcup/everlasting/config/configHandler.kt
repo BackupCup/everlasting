@@ -23,6 +23,8 @@ object configHandler {
         defaultConfig.setProperty("PotionEverlastingDuration", "90")
         defaultConfig.setProperty("PotionEverlastingLargeDuration", "180")
 
+        defaultConfig.setProperty("CapsuleDurability", "250")
+
         defaultConfig.setProperty("ObeliskRadius", "16")
         defaultConfig.setProperty("ObeliskChargePerSculk", "10")
         defaultConfig.setProperty("ObeliskChargedUsedPerPlayer", "1")
