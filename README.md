@@ -11,6 +11,7 @@ The Everlasting Obelisk is a powerful block that provides a unique buff to playe
 - **Durability Empowerment:** The obelisk makes all gear worn by nearby players unbreakable.
 - **Fuel Requirement:** It consumes Sculk as fuel for its empowering effect.
 - **Lightning Rod Connection:** To transmit the empowering effect, the obelisk requires a connected lightning rod.
+- **Overcharge Feature:** You can overcharge the Everlasting Obelisk with lightning strikes. When overcharged, it enhances its empowering effect for a limited time, providing even greater range.
 
 ### 2. Treasure Enchantment: Restoring
 
@@ -24,6 +25,13 @@ Equip your gear with the Restoring enchantment to make it truly indestructible. 
 For a temporary boost of unbreakable gear, use the Everlasting Potion. This potion applies the same effect as the Everlasting Obelisk for a limited time:
 
 - **On-the-Go Protection:** Perfect for adventurers and explorers, the potion grants a short-term immunity to gear durability damage.
+
+### 4. Everlasting Capsule
+
+Discover the Everlasting Capsule in End cities, Ancient Cities, and Bastion treasures. This new item provides a unique twist to durability mechanics:
+
+- **Blocking Damage:** Similar to the Everlasting Obelisk, the Everlasting Capsule blocks damage to your gear.
+- **Durability Consumption:** Unlike the Everlasting Obelisk, the capsule loses durability when blocking damage. Manage its durability wisely for prolonged use.
 
 ![FAQ](https://github.com/EndLone/everlasting/blob/master/descAssets/faq.png)
 
