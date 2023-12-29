@@ -3,9 +3,10 @@
 	"package": "net.backupcup.everlasting.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ItemStackMixin",
-		"BrewingRecipeRegistryMixin"
-	],
+      "BrewingRecipeRegistryMixin",
+      "ItemStackMixin",
+      "TridentEntityMixin"
+    ],
 	"injectors": {
 		"defaultRequire": 1
 	}

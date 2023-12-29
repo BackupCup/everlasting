@@ -1,4 +1,1 @@
- - Changed the abilities of Obelisk UI to "break" out of bounds when the block is Overcharged
- - Added a clientside setting into config that turns that off or on
- - Added an Everlasting Capsule, The obelisk on the go!
- - Made Restoring be incompatible with Everlasting Capsule
+ - Tridents that have Loyalty will now return when in the void

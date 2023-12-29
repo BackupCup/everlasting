@@ -49,8 +49,6 @@ class ObeliskScreenHandler(
         this.addProperties(propertyDelegate)
     }
 
-
-
     override fun quickMove(player: PlayerEntity?, invSlot: Int): ItemStack? {
         var newStack: ItemStack = ItemStack.EMPTY
         val slot: Slot = this.slots[invSlot]
