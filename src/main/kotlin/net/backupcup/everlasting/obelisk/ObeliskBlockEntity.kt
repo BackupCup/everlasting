@@ -4,14 +4,11 @@ import net.backupcup.everlasting.assign.RegisterBlocks
 import net.backupcup.everlasting.assign.RegisterEffects
 import net.backupcup.everlasting.config.configHandler
 import net.backupcup.everlasting.inventory.ImplementedInventory
-import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.block.LightningRodBlock
 import net.minecraft.block.entity.BlockEntity
-import net.minecraft.client.report.ReporterEnvironment.Server
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
@@ -26,7 +23,6 @@ import net.minecraft.particle.ParticleTypes
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
-import net.minecraft.server.world.ServerWorld
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
@@ -128,19 +124,37 @@ class ObeliskBlockEntity(
 
         fun tick(world: World?, pos: BlockPos?, state: BlockState?, blockEntity: ObeliskBlockEntity?) {
             if (world != null && pos != null && blockEntity != null) {
+
+
                 if(world.isClient) return
                 if(blockEntity.playerAmount > 0) {
                     if(blockEntity.charge <= (blockEntity.maxCharge - blockEntity.chargePerSculk)
                         && blockEntity.itemSlot[0].isOf(Items.SCULK)) {
                             blockEntity.consumeItem()
                             blockEntity.addCharge(blockEntity.chargePerSculk)
+
+                            if(blockEntity.charge == blockEntity.maxCharge) {
+                                blockEntity.world?.playSound(null, blockEntity.pos,
+                                    SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS,
+                                    .0125F, 1.0F)
+                            }
+
                             markDirty(world, pos, state)
                     }
                 }
 
                 if(world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD)
                     if(world.getBlockState(pos.up()).get(LightningRodBlock.POWERED)) {
+                        val previousCharge: Int = blockEntity.charge
+
                         blockEntity.addOverCharge(blockEntity.chargePerSculk)
+
+                        if(blockEntity.charge > blockEntity.maxCharge && previousCharge < blockEntity.maxCharge) {
+                            blockEntity.world?.playSound(null, blockEntity.pos,
+                                SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS,
+                                1.0F, 1.0F)
+                        }
+                        markDirty(world, pos, state)
                     }
 
                 if(world.time % 100L == 0L) {
