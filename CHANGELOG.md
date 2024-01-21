@@ -2,4 +2,5 @@
  - Added a sound on an Obelisk becoming Overcharged
  - Added a sound on an Obelisk fully charging up with Sculk
  - Fixed the issue with Impact UI not rendering the Tooltip and non-Impact UI rendering the Tooltip when Overcharged
- - TODO: Make the Obelisk humm like a microwave when it's working
+ - Made the Obelisk make a beacon noise when active
+ - Added partiles to display Obelisk's state
