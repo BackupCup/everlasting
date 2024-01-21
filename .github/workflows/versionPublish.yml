@@ -41,7 +41,7 @@ jobs:
 
 
       - name: Publish CurseForge
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: 947955
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
@@ -57,7 +57,7 @@ jobs:
 
 
       - name: Publish Github
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           github-tag: "v${{env.VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
@@ -73,7 +73,7 @@ jobs:
 
 
       - name: Publish Modrinth
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-id: GJry151G
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
