@@ -7,12 +7,15 @@ import net.backupcup.everlasting.config.configHandler;
 import net.backupcup.everlasting.enchantment.RestoringEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
+
     @WrapWithCondition(method = "damage(ILnet/minecraft/util/math/random/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z",
                        at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/item/ItemStack;setDamage(I)V"))
@@ -26,6 +29,13 @@ public abstract class ItemStackMixin {
                 for(ItemStack inventoryStack : player.getInventory().main) {
                     if(inventoryStack.getItem() == RegisterItems.INSTANCE.getCAPSULE() && (inventoryStack.getMaxDamage() - inventoryStack.getDamage()) > damage) {
                         inventoryStack.damage(damage, random, player);
+
+                        if(inventoryStack.getDamage() + 1 == inventoryStack.getMaxDamage()) {
+                            player.getServerWorld().playSound(null, player.getBlockPos(),
+                                    SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS,
+                                    .25F, 1.0F);
+                        }
+
                         return false;
                     }
                 }
