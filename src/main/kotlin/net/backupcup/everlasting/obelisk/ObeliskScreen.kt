@@ -5,7 +5,6 @@ import net.backupcup.everlasting.Everlasting
 import net.backupcup.everlasting.config.configHandler
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
-import net.minecraft.client.font.TextRenderer
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.render.GameRenderer
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 import net.minecraft.util.Identifier
-import org.joml.Vector2d
 import kotlin.math.ceil
 
 @Environment(value = EnvType.CLIENT)
@@ -110,7 +108,7 @@ class ObeliskScreen(
             )
         }
 
-        if(impactUI) {
+        if(!impactUI) {
             if (mouseX in (x + 51..x + 124) && mouseY in (y + 10..y + 27))
                 context?.drawTooltip(
                     this.textRenderer,
