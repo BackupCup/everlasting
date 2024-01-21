@@ -1,0 +1,35 @@
+{
+  "effect.everlasting.everlasting": "Perenne",
+
+  "item.everlasting.everlasting_capsule": "Capsula Perenne",
+  "tooltip.everlasting.everlasting_capsule.line_1": "Assorbe danno da altri oggetti, applicando lo stesso danno su se stessa.",
+
+  "block.everlasting.everlasting_obelisk": "Obelisco Perenne",
+  "tooltip.everlasting.everlasting_obelisk.line_1": "Potenzia l'attrezzatura dei giocatori vicini",
+  "tooltip.everlasting.everlasting_obelisk.line_2": "con durabilita indistruttibile usando lo Sculk come carburante.",
+  "tooltip.everlasting.everlasting_obelisk.line_3": "Richiede un parafulmine connesso per trasmettere l'effetto.",
+  "tooltip.everlasting.everlasting_obelisk.line_4": "Si sovraccarica misticamente dopo un colpo di fulmine, raddoppiando il raggio e l'uso di Sculk.",
+  "tooltip.everlasting.everlasting_obelisk.ui.charge": "Carica Sculk",
+  "tooltip.everlasting.everlasting_obelisk.ui.overcharged": "⚡ SOVRACCARICATO ⚡",
+  "tooltip.everlasting.everlasting_obelisk.ui.sculkPerPlayer": "Cariche usate per Giocatore",
+  "tooltip.everlasting.everlasting_obelisk.ui.chargePerSculk": "Cariche guadagnate per Sculk",
+  "tooltip.everlasting.everlasting_obelisk.ui.effectRange": "Raggio Effettivo",
+
+  "advancements.nether.everlasting_obelisk.title": "Una Dubbiosa Costuzione",
+  "advancements.nether.everlasting_obelisk.description": "Crea l'obelisco Eterno, un blocco speciale che usa lo Sculk per salvare il tuo equipaggiamento.",
+
+
+  "item.minecraft.potion.effect.everlasting_potion": "Pozione Perenne",
+  "item.minecraft.splash_potion.effect.everlasting_potion": "Pozione da lancio Perenne",
+  "item.minecraft.lingering_potion.effect.everlasting_potion": "Pozione permanente Perenne",
+  "item.minecraft.potion.effect.everlasting_potion_2": "Pozione Perenne",
+  "item.minecraft.splash_potion.effect.everlasting_potion_2": "Pozione da lancio Perenne",
+  "item.minecraft.lingering_potion.effect.everlasting_potion_2": "Pozione permanente Perenne",
+  "item.minecraft.tipped_arrow.effect.everlasting_potion" : "Freccia Perenne",
+  "item.minecraft.tipped_arrow.effect.everlasting_potion_2" : "Freccia Perenne",
+  "item.mythicmetals.tipped_runite_arrow.effect.everlasting_potion": "Freccia di Runite Perenne",
+  "item.mythicmetals.tipped_runite_arrow.effect.everlasting_potion_2": "Freccia di Runite Perenne",
+
+  "enchantment.everlasting.restoring": "Ripristino",
+  "enchantment.everlasting.restoring.desc": "Quando il tuo equipaggiamento dovrebbe perdere durabilita, l'incantamento blocca il danno in cambio di un po di XP."
+}
