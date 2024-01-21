@@ -4,6 +4,10 @@ import net.backupcup.everlasting.assign.RegisterBlocks
 import net.backupcup.everlasting.assign.RegisterEffects
 import net.backupcup.everlasting.config.configHandler
 import net.backupcup.everlasting.inventory.ImplementedInventory
+import net.backupcup.everlasting.packets.ObeliskNetworkingConstants
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
@@ -53,6 +57,17 @@ class ObeliskBlockEntity(
     private var playerAmount: Int = 0
     private var soundPlayed: Boolean = true
 
+    fun setCharge(charge: Int?) {
+        if (charge != null) {
+            this.charge = charge
+        }
+    }
+
+    fun setPlayerAmount(playerAmount: Int?) {
+        if (playerAmount != null) {
+            this.playerAmount = playerAmount
+        }
+    }
 
     private val propertyDelegate: PropertyDelegate = object : PropertyDelegate {
         override fun get(index: Int): Int {
@@ -70,6 +85,7 @@ class ObeliskBlockEntity(
 
     override fun markDirty() {
         world?.updateListeners(pos, cachedState, cachedState, Block.NOTIFY_LISTENERS)
+        super<BlockEntity>.markDirty()
     }
 
     override fun getItems(): DefaultedList<ItemStack?> {
@@ -111,21 +127,36 @@ class ObeliskBlockEntity(
     companion object {
         fun clientTick(world: World?, pos: BlockPos?, state: BlockState?, blockEntity: ObeliskBlockEntity?) {
             markDirty(world, pos, state)
-            if(world != null && pos != null && blockEntity != null &&
-                world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD) {
-                world.addParticle(
-                    ParticleTypes.ELECTRIC_SPARK,
-                    blockEntity.pos.x.toDouble() + Random.nextDouble(.25, .75),
-                    blockEntity.pos.y.toDouble() + Random.nextDouble(1.0, 2.0),
-                    blockEntity.pos.z.toDouble()  + Random.nextDouble(.25, .75),
-                    Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025))
+            if(world != null && pos != null && blockEntity != null) {
+                if (world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD) {
+                    if (blockEntity.charge > 0 && blockEntity.playerAmount > 0) {
+                        world.addParticle(
+                            ParticleTypes.GLOW,
+                            blockEntity.pos.x.toDouble() + Random.nextDouble(.25, .75),
+                            blockEntity.pos.y.toDouble() + Random.nextDouble(1.0, 2.0),
+                            blockEntity.pos.z.toDouble()  + Random.nextDouble(.25, .75),
+                            Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025))
+                    } else {
+                        world.addParticle(
+                            ParticleTypes.ELECTRIC_SPARK,
+                            blockEntity.pos.x.toDouble() + Random.nextDouble(.25, .75),
+                            blockEntity.pos.y.toDouble() + Random.nextDouble(1.0, 2.0),
+                            blockEntity.pos.z.toDouble()  + Random.nextDouble(.25, .75),
+                            Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025))
+                    }
+                } else {
+                    world.addParticle(
+                        ParticleTypes.WAX_ON,
+                        blockEntity.pos.x.toDouble() + Random.nextDouble(.25, .75),
+                        blockEntity.pos.y.toDouble() + Random.nextDouble(1.0, 2.0),
+                        blockEntity.pos.z.toDouble()  + Random.nextDouble(.25, .75),
+                        Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025), Random.nextDouble(-.025, .025))
+                }
             }
         }
 
         fun tick(world: World?, pos: BlockPos?, state: BlockState?, blockEntity: ObeliskBlockEntity?) {
             if (world != null && pos != null && blockEntity != null) {
-
-
                 if(world.isClient) return
                 if(blockEntity.playerAmount > 0) {
                     if(blockEntity.charge <= (blockEntity.maxCharge - blockEntity.chargePerSculk)
@@ -143,7 +174,8 @@ class ObeliskBlockEntity(
                     }
                 }
 
-                if(world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD)
+                if(world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD) {
+
                     if(world.getBlockState(pos.up()).get(LightningRodBlock.POWERED)) {
                         val previousCharge: Int = blockEntity.charge
 
@@ -156,6 +188,7 @@ class ObeliskBlockEntity(
                         }
                         markDirty(world, pos, state)
                     }
+                }
 
                 if(world.time % 100L == 0L) {
                     if(world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD) {
@@ -178,6 +211,7 @@ class ObeliskBlockEntity(
                                     blockEntity.decreaseCharge()
                                     if(blockEntity.charge > blockEntity.maxCharge) blockEntity.decreaseCharge()
                                 }
+                                blockEntity.playAmbientSound()
                                 markDirty(world, pos, state)
                             } else {
                                 blockEntity.playDeactivationSound()
@@ -194,6 +228,17 @@ class ObeliskBlockEntity(
                 }
                 markDirty(world, pos, state)
             }
+        }
+    }
+
+    private fun sendObeliskPackets() {
+        val buf = PacketByteBufs.create()
+        buf.writeBlockPos(this.pos)
+        buf.writeInt(this.charge)
+        buf.writeInt(this.playerAmount)
+
+        for (player in PlayerLookup.tracking(this)) {
+            ServerPlayNetworking.send(player, ObeliskNetworkingConstants.OBELISK_PACKET_ID, buf)
         }
     }
 
@@ -217,6 +262,8 @@ class ObeliskBlockEntity(
 
     private fun decreaseCharge() {
         this.charge -= this.chargePerPlayer
+
+        sendObeliskPackets()
     }
 
 
@@ -232,5 +279,10 @@ class ObeliskBlockEntity(
             world?.playSound(null, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.BLOCKS)
             this.soundPlayed = true
         }
+    }
+
+    private fun playAmbientSound() {
+        world?.playSound(null, pos, SoundEvents.BLOCK_BEACON_AMBIENT, SoundCategory.BLOCKS)
+        markDirty()
     }
 }
