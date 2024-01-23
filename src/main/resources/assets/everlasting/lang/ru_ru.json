@@ -1,0 +1,35 @@
+{
+  "effect.everlasting.everlasting": "Вечность",
+
+  "item.everlasting.everlasting_capsule": "Вечная Капсула",
+  "tooltip.everlasting.everlasting_capsule.line_1": "Поглощает урон от других предметов, нанося этот урон себе.",
+
+  "block.everlasting.everlasting_obelisk": "Вечный Обелиск",
+  "tooltip.everlasting.everlasting_obelisk.line_1": "Усиливает снаряжение ближайших игроков",
+  "tooltip.everlasting.everlasting_obelisk.line_2": "несокрушимой прочностью, используя Скалк в качестве топлива.",
+  "tooltip.everlasting.everlasting_obelisk.line_3": "Для передачи эффекта требуется подключенный громоотвод.",
+  "tooltip.everlasting.everlasting_obelisk.line_4": "Мистическим образом увеличивает заряд при ударе молнии, удваивает дальность и использование Скалка.",
+  "tooltip.everlasting.everlasting_obelisk.ui.charge": "Скалк Заряд",
+  "tooltip.everlasting.everlasting_obelisk.ui.overcharged": "⚡ ПЕРЕЗАРЯЖЕН ⚡",
+  "tooltip.everlasting.everlasting_obelisk.ui.sculkPerPlayer": "Заряд, использованный на Игрока",
+  "tooltip.everlasting.everlasting_obelisk.ui.chargePerSculk": "Заряд, полученный за Скалк",
+  "tooltip.everlasting.everlasting_obelisk.ui.effectRange": "Эффективная дальность",
+
+  "advancements.nether.everlasting_obelisk.title": "Странное Устройство",
+  "advancements.nether.everlasting_obelisk.description": "Создайте Вечный обелиск — специальный блок, который использует Скалк для сохранения ваших предметов.",
+
+
+  "item.minecraft.potion.effect.everlasting_potion": "Зелье Вечности",
+  "item.minecraft.splash_potion.effect.everlasting_potion": "Взрывающееся Зелье Вечности",
+  "item.minecraft.lingering_potion.effect.everlasting_potion": "Оседающее Зелье Вечности",
+  "item.minecraft.potion.effect.everlasting_potion_2": "Зелье Вечности",
+  "item.minecraft.splash_potion.effect.everlasting_potion_2": "Взрывающееся Зелье Вечности",
+  "item.minecraft.lingering_potion.effect.everlasting_potion_2": "Оседающее Зелье Вечности",
+  "item.minecraft.tipped_arrow.effect.everlasting_potion" : "Стрела Вечности",
+  "item.minecraft.tipped_arrow.effect.everlasting_potion_2" : "Стрела Вечности",
+  "item.mythicmetals.tipped_runite_arrow.effect.everlasting_potion": "Рунитовая Стрела Вечности",
+  "item.mythicmetals.tipped_runite_arrow.effect.everlasting_potion_2": "Рунитовая Стрела Вечности",
+
+  "enchantment.everlasting.restoring": "Восстановление",
+  "enchantment.everlasting.restoring.desc": "Когда снаряжение теряет прочность, зачарование поглотит часть опыта, чтобы ануллировать это."
+}
