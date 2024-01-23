@@ -1,3 +1,3 @@
  - Updated the config
- - Added the setting to make certain items undespawnable
+ - Added the setting to make certain items undespawnable (Needs to be turned on)
  - Fixed packeting issue connected to the old config
