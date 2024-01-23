@@ -1,8 +1,8 @@
 package net.backupcup.everlasting.obelisk
 
+import net.backupcup.everlasting.Everlasting
 import net.backupcup.everlasting.assign.RegisterBlocks
 import net.backupcup.everlasting.assign.RegisterEffects
-import net.backupcup.everlasting.config.configHandler
 import net.backupcup.everlasting.inventory.ImplementedInventory
 import net.backupcup.everlasting.packets.ObeliskNetworkingConstants
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
@@ -48,10 +48,10 @@ class ObeliskBlockEntity(
     private val itemSlot: DefaultedList<ItemStack?> = DefaultedList.ofSize(1, ItemStack.EMPTY)
 
     //Config Values
-    val maxCharge = configHandler.getConfigValue("ObeliskChargeMax").toInt()
-    val chargePerPlayer = configHandler.getConfigValue("ObeliskChargedUsedPerPlayer").toInt()
-    val chargePerSculk = configHandler.getConfigValue("ObeliskChargePerSculk").toInt()
-    val effectRadius = configHandler.getConfigValue("ObeliskRadius").toDouble()
+    val maxCharge = Everlasting.getConfig()?.ObeliskChargeMax()
+    val chargePerPlayer = Everlasting.getConfig()?.ObeliskChargeUsedPerPlayer()
+    val chargePerSculk = Everlasting.getConfig()?.ObeliskChargePerSculk()
+    val effectRadius = Everlasting.getConfig()?.ObeliskRadius()
 
     private var charge: Int = 0
     private var playerAmount: Int = 0
@@ -95,17 +95,17 @@ class ObeliskBlockEntity(
     override fun readNbt(nbt: NbtCompound?) {
         super.readNbt(nbt)
         Inventories.readNbt(nbt, this.itemSlot);
-        charge = nbt?.getInt("everlastingObelisk.charge")!!
-        playerAmount = nbt.getInt("everlastingObelisk.playerAmount")
-        soundPlayed = nbt.getBoolean("everlastingObelisk.soundPlayed")
+        charge = nbt?.getInt("charge")!!
+        playerAmount = nbt.getInt("playerAmount")
+        soundPlayed = nbt.getBoolean("soundPlayed")
     }
 
     override fun writeNbt(nbt: NbtCompound?) {
         super.writeNbt(nbt)
         Inventories.writeNbt(nbt, this.itemSlot);
-        nbt?.putInt("everlastingObelisk.charge", charge)
-        nbt?.putInt("everlastingObelisk.playerAmount", playerAmount)
-        nbt?.putBoolean("everlastingObelisk.soundPlayed", soundPlayed)
+        nbt?.putInt("charge", charge)
+        nbt?.putInt("playerAmount", playerAmount)
+        nbt?.putBoolean("soundPlayed", soundPlayed)
     }
 
     override fun toUpdatePacket(): Packet<ClientPlayPacketListener>? {
@@ -159,10 +159,10 @@ class ObeliskBlockEntity(
             if (world != null && pos != null && blockEntity != null) {
                 if(world.isClient) return
                 if(blockEntity.playerAmount > 0) {
-                    if(blockEntity.charge <= (blockEntity.maxCharge - blockEntity.chargePerSculk)
+                    if(blockEntity.charge <= ((blockEntity.maxCharge?: 120) - (blockEntity.chargePerSculk?: 10))
                         && blockEntity.itemSlot[0].isOf(Items.SCULK)) {
                             blockEntity.consumeItem()
-                            blockEntity.addCharge(blockEntity.chargePerSculk)
+                            blockEntity.addCharge(blockEntity.chargePerSculk?: 10)
 
                             if(blockEntity.charge == blockEntity.maxCharge) {
                                 blockEntity.world?.playSound(null, blockEntity.pos,
@@ -179,9 +179,9 @@ class ObeliskBlockEntity(
                     if(world.getBlockState(pos.up()).get(LightningRodBlock.POWERED)) {
                         val previousCharge: Int = blockEntity.charge
 
-                        blockEntity.addOverCharge(blockEntity.chargePerSculk)
+                        blockEntity.addOverCharge(blockEntity.chargePerSculk?: 10)
 
-                        if(blockEntity.charge > blockEntity.maxCharge && previousCharge < blockEntity.maxCharge) {
+                        if(blockEntity.charge > (blockEntity.maxCharge?: 120) && previousCharge < (blockEntity.maxCharge?: 120)) {
                             blockEntity.world?.playSound(null, blockEntity.pos,
                                 SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS,
                                 1.0F, 1.0F)
@@ -192,10 +192,10 @@ class ObeliskBlockEntity(
 
                 if(world.time % 100L == 0L) {
                     if(world.getBlockState(pos.up(1)).block == Blocks.LIGHTNING_ROD) {
-                        var box = Box(pos).expand(blockEntity.effectRadius).stretch(0.0, world.height.toDouble(), 0.0)
+                        var box = Box(pos).expand((blockEntity.effectRadius?: 16).toDouble()).stretch(0.0, world.height.toDouble(), 0.0)
 
-                        if(blockEntity.charge > blockEntity.maxCharge)
-                            box = Box(pos).expand(blockEntity.effectRadius * 2).stretch(0.0, world.height.toDouble(), 0.0)
+                        if(blockEntity.charge > (blockEntity.maxCharge?: 120))
+                            box = Box(pos).expand(((blockEntity.effectRadius?: 16) * 2).toDouble()).stretch(0.0, world.height.toDouble(), 0.0)
 
                         val list = world.getNonSpectatingEntities(
                             PlayerEntity::class.java, box
@@ -209,7 +209,7 @@ class ObeliskBlockEntity(
                                 for (playerEntity in list) {
                                     playerEntity.addStatusEffect(StatusEffectInstance(RegisterEffects.EVERLASTING, 101, 0, true, true))
                                     blockEntity.decreaseCharge()
-                                    if(blockEntity.charge > blockEntity.maxCharge) blockEntity.decreaseCharge()
+                                    if(blockEntity.charge > (blockEntity.maxCharge?: 120)) blockEntity.decreaseCharge()
                                 }
                                 blockEntity.playAmbientSound()
                                 markDirty(world, pos, state)
@@ -247,21 +247,21 @@ class ObeliskBlockEntity(
     }
 
     private fun consumeItem() {
-        if(this.itemSlot[0].isOf(Items.SCULK)) this.itemSlot[0].decrement(chargePerPlayer)
+        if(this.itemSlot[0].isOf(Items.SCULK)) this.itemSlot[0].decrement(chargePerPlayer?: 1)
     }
 
     private fun addOverCharge(charge: Int) {
         this.charge += charge
-        if (this.charge >= this.maxCharge * 2) this.charge = this.maxCharge * 2
+        if (this.charge >= (this.maxCharge?: 120) * 2) this.charge = (this.maxCharge?: 120) * 2
     }
 
     private fun addCharge(charge: Int) {
         this.charge += charge
-        if (this.charge >= this.maxCharge) this.charge = this.maxCharge
+        if (this.charge >= (this.maxCharge?: 120)) this.charge = this.maxCharge?: 120
     }
 
     private fun decreaseCharge() {
-        this.charge -= this.chargePerPlayer
+        this.charge -= this.chargePerPlayer?: 1
 
         sendObeliskPackets()
     }

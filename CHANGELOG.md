@@ -1,6 +1,3 @@
- - Added a sound on a capsule becoming "unusable" (aka reaching 1 Durability)
- - Added a sound on an Obelisk becoming Overcharged
- - Added a sound on an Obelisk fully charging up with Sculk
- - Fixed the issue with Impact UI not rendering the Tooltip and non-Impact UI rendering the Tooltip when Overcharged
- - Made the Obelisk make a beacon noise when active
- - Added partiles to display Obelisk's state
+ - Updated the config
+ - Added the setting to make certain items undespawnable
+ - Fixed packeting issue connected to the old config

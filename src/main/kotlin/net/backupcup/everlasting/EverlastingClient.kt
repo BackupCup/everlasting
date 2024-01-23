@@ -3,6 +3,7 @@ package net.backupcup.everlasting
 import net.backupcup.everlasting.assign.RegisterBlocks
 import net.backupcup.everlasting.assign.RegisterScreenHandlers
 import net.backupcup.everlasting.assign.RegisterScreens
+import net.backupcup.everlasting.config.Config
 import net.backupcup.everlasting.obelisk.ObeliskBlockEntity
 import net.backupcup.everlasting.packets.ObeliskNetworkingConstants
 import net.fabricmc.api.ClientModInitializer
@@ -28,6 +29,18 @@ object EverlastingClient : ClientModInitializer{
             ObeliskNetworkingConstants.OBELISK_PACKET_ID,
             EverlastingClient::handleHighlightPacket
         )
+
+        ClientPlayNetworking.registerGlobalReceiver(
+            Everlasting.SYNC_CONFIG_PACKET
+        ) { client: MinecraftClient?, handler: ClientPlayNetworkHandler?, buf: PacketByteBuf?, responseSender: PacketSender? ->
+            if (buf != null) {
+                Config.readFromServer(buf)?.let {
+                    Everlasting.setConfig(
+                        it
+                    )
+                }
+            }
+        }
     }
 
     private fun handleHighlightPacket(client: MinecraftClient, handler: ClientPlayNetworkHandler, buf: PacketByteBuf, responseSender: PacketSender) {
