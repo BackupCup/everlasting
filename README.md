@@ -1,8 +1,22 @@
-![Introduction](https://github.com/EndLone/everlasting/blob/master/descAssets/Introduction.png)
+<h1>
+    <a href="https://modrinth.com/mod/emi">
+        <img src="https://i.imgur.com/U7qHdp4.png" alt="" width="164" height="65" />
+    </a>
+    <a href="https://modrinth.com/mod/fabric-api">
+        <img src="https://i.imgur.com/Ol1Tcf8.png" alt="" width="184" height="65" />
+    </a>
+</h1>
+<p style="text-align: center;">
+
+![Main Banner](https://bisecthosting.com/images/CF/Everlasting/BH_EL_header.webp)
+
+![Introduction](https://bisecthosting.com/images/CF/Everlasting/BH_EL_introduction.webp)
 
 Welcome to the Everlasting Mod, where durability concerns are a thing of the past!
 
-![Content](https://github.com/EndLone/everlasting/blob/master/descAssets/content.png)
+![Promo for BisectHosting servers](https://bisecthosting.com/images/CF/Everlasting/BH_EL_promo.webp)
+
+![Content](https://bisecthosting.com/images/CF/Everlasting/BH_EL_content.webp)
 
 ### 1. Everlasting Obelisk
 
@@ -33,7 +47,7 @@ Discover the Everlasting Capsule in End cities, Ancient Cities, and Bastion trea
 - **Blocking Damage:** Similar to the Everlasting Obelisk, the Everlasting Capsule blocks damage to your gear.
 - **Durability Consumption:** Unlike the Everlasting Obelisk, the capsule loses durability when blocking damage. Manage its durability wisely for prolonged use.
 
-![FAQ](https://github.com/EndLone/everlasting/blob/master/descAssets/faq.png)
+![FAQ](https://bisecthosting.com/images/CF/Everlasting/BH_EL_faq.webp)
 
 ## Installation
 
