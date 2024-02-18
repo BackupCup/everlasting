@@ -75,7 +75,7 @@ object Everlasting : ModInitializer {
 				}
 			})
 
-		ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register(SyncDataPackContents { player: ServerPlayerEntity, joined: Boolean ->
+		ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register(SyncDataPackContents { player: ServerPlayerEntity, _: Boolean ->
 			val buf = PacketByteBufs.create()
 			config!!.writeToClient(buf)
 			ServerPlayNetworking.send(player, SYNC_CONFIG_PACKET, buf)
@@ -97,11 +97,11 @@ object Everlasting : ModInitializer {
 
 		RegisterItems.CAPSULE
 		LootTableEvents.MODIFY.register(Modify {
-			resourceManager: ResourceManager?,
-			lootManager: LootManager?,
-			id: Identifier?, tableBuilder:
+				_: ResourceManager?,
+				_: LootManager?,
+				id: Identifier?, tableBuilder:
 			LootTable.Builder,
-			source: LootTableSource ->
+				source: LootTableSource ->
 			if (id != null) {
 				if (source.isBuiltin && capsuleLootTables.contains(id)) {
 					val poolBuilder = LootPool.builder()

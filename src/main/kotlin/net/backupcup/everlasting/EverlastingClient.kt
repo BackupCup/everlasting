@@ -32,7 +32,7 @@ object EverlastingClient : ClientModInitializer{
 
         ClientPlayNetworking.registerGlobalReceiver(
             Everlasting.SYNC_CONFIG_PACKET
-        ) { client: MinecraftClient?, handler: ClientPlayNetworkHandler?, buf: PacketByteBuf?, responseSender: PacketSender? ->
+        ) { _: MinecraftClient?, _: ClientPlayNetworkHandler?, buf: PacketByteBuf?, _: PacketSender? ->
             if (buf != null) {
                 Config.readFromServer(buf)?.let {
                     Everlasting.setConfig(

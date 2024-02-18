@@ -1,5 +1,6 @@
 package net.backupcup.everlasting.obelisk
 
+import com.mojang.serialization.MapCodec
 import net.backupcup.everlasting.assign.RegisterBlocks
 import net.minecraft.block.*
 import net.minecraft.block.entity.BlockEntity
@@ -28,6 +29,8 @@ class ObeliskBlock(
 ), BlockEntityProvider {
     private val SHAPE: VoxelShape = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)
 
+    val CODEC: MapCodec<ObeliskBlock> = AbstractBlock.createCodec(::ObeliskBlock)
+
     override fun getOutlineShape(
         state: BlockState?,
         world: BlockView?,
@@ -55,6 +58,10 @@ class ObeliskBlock(
         tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_2").formatted(Formatting.GRAY))
         tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_3").formatted(Formatting.GRAY))
         tooltip?.add(Text.translatable("tooltip.everlasting.everlasting_obelisk.line_4").formatted(Formatting.YELLOW))
+    }
+
+    override fun getCodec(): MapCodec<out BlockWithEntity> {
+        return CODEC
     }
 
     override fun onStateReplaced(
@@ -104,11 +111,11 @@ class ObeliskBlock(
         state: BlockState?,
         type: BlockEntityType<T>?
     ): BlockEntityTicker<T>? {
-        return checkType(type, RegisterBlocks.EVERLASTING_OBELISK_BLOCK_ENTITY, BlockEntityTicker { world, pos, state, blockEntity ->
+        return validateTicker(type, RegisterBlocks.EVERLASTING_OBELISK_BLOCK_ENTITY) { world, pos, state, blockEntity ->
             if (blockEntity is ObeliskBlockEntity) {
                 if (world.isClient) ObeliskBlockEntity.clientTick(world, pos, state, blockEntity)
                 else ObeliskBlockEntity.tick(world, pos, state, blockEntity)
             }
-        })
+        }
     }
 }
