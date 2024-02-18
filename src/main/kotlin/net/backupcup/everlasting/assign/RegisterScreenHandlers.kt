@@ -3,7 +3,6 @@ package net.backupcup.everlasting.assign
 import net.backupcup.everlasting.Everlasting
 import net.backupcup.everlasting.obelisk.ObeliskScreenHandler
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry
-import net.minecraft.resource.featuretoggle.FeatureFlags
 import net.minecraft.screen.ScreenHandlerType
 import net.minecraft.util.Identifier
 

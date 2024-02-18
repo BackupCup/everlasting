@@ -22,7 +22,7 @@ public abstract class TridentEntityMixin {
             at = @At("HEAD")
     )
     private void loyaltyVoid(CallbackInfo ci) {
-        if (((TridentEntity)(Object)this).getY() <= -64 && EnchantmentHelper.getLevel(Enchantments.LOYALTY, getTridentStack()) > 0)
+        if (((TridentEntity)(Object)this).getY() <= -48 && EnchantmentHelper.getLevel(Enchantments.LOYALTY, getTridentStack()) > 0)
             setDealtDamage(true);
     }
 }

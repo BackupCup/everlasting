@@ -1,6 +1,6 @@
 package net.backupcup.everlasting.mixin;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.backupcup.everlasting.Everlasting;
 import net.backupcup.everlasting.assign.RegisterEffects;
 import net.backupcup.everlasting.assign.RegisterItems;

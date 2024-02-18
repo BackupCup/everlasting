@@ -31,7 +31,7 @@ class Config {
 
         private val JANKSON: Jankson = Jankson.builder()
             .registerSerializer(Identifier::class.java) { id, marshaller -> marshaller.serialize(id.toString()) }
-            .registerDeserializer(String::class.java, Identifier::class.java) { str, marshaller ->
+            .registerDeserializer(String::class.java, Identifier::class.java) { str, _ ->
                 Identifier.tryParse(
                     str
                 )
